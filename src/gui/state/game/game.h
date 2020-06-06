@@ -89,8 +89,8 @@ public:
   void LoadMetadata();
   std::set<std::string> GetKnownBashTags() const;
 
-  std::unordered_set<Group> GetMasterlistGroups() const;
-  std::unordered_set<Group> GetUserGroups() const;
+  std::vector<Group> GetMasterlistGroups() const;
+  std::vector<Group> GetUserGroups() const;
 
   std::optional<PluginMetadata> GetMasterlistMetadata(
       const std::string& pluginName,
@@ -99,7 +99,7 @@ public:
       const std::string& pluginName,
       bool evaluateConditions = false) const;
 
-  void SetUserGroups(const std::unordered_set<Group>& groups);
+  void SetUserGroups(const std::vector<Group>& groups);
   void AddUserMetadata(const PluginMetadata& metadata);
   void ClearUserMetadata(const std::string& pluginName);
   void ClearAllUserMetadata();

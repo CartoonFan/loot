@@ -247,7 +247,7 @@ void from_json(const nlohmann::json& json, Group& group) {
   }
 
   group = Group(json.at("name"),
-    json.value("after", std::unordered_set<std::string>()));
+    json.value("after", std::vector<std::string>()));
 }
 
 void to_json(nlohmann::json& json, const Location& location) {
@@ -313,7 +313,6 @@ nlohmann::json to_json_with_language(const PluginMetadata& metadata,
                                      const std::string& language) {
   nlohmann::json json = {
     { "name", metadata.GetName() },
-    { "enabled", metadata.IsEnabled() },
     { "after", metadata.GetLoadAfterFiles() },
     { "req", metadata.GetRequirements() },
     { "inc", metadata.GetIncompatibilities() },
@@ -362,8 +361,6 @@ void from_json(const nlohmann::json& json, PluginMetadata& metadata) {
         "'name' value");
     }
   }
-
-  metadata.SetEnabled(json.value("enabled", false));
 
   auto groupIt = json.find("group");
   if (groupIt != json.end()) {

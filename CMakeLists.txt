@@ -73,7 +73,7 @@ set (GTEST_LIBRARIES "${BINARY_DIR}/googlemock/gtest/${CMAKE_CFG_INTDIR}/${CMAKE
 if (NOT DEFINED LIBLOOT_URL)
     if (CMAKE_SYSTEM_NAME MATCHES "Windows")
         if (NOT "${CMAKE_GENERATOR}" MATCHES "(Win64|IA64)")
-            set(LIBLOOT_URL "https://github.com/loot/libloot/releases/download/0.15.1/libloot-0.15.1-0-gf725dd7_0.15.1-win32.7z")
+            set(LIBLOOT_URL "https://bintray.com/loot/snapshots/download_file?file_path=libloot-0.15.1-18-ge63e8dc_breaking-changes-win32.7z")
         else()
             set(LIBLOOT_URL "https://github.com/loot/libloot/releases/download/0.15.1/libloot-0.15.1-0-gf725dd7_0.15.1-win64.7z")
         endif()

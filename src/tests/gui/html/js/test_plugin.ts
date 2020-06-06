@@ -1275,6 +1275,35 @@ describe('PluginCardContent', () => {
         remove: ''
       });
     });
+
+    test('should deduplicate added tags', () => {
+      plugin.suggestedTags = [
+        { name: 'Relev', isAddition: true, condition: '' },
+        { name: 'Relev', isAddition: true, condition: 'file("master.esm")' }
+      ];
+
+      expect(plugin.getCardContent(filters).tags).toEqual({
+        current: '',
+        add: 'Relev',
+        remove: ''
+      });
+    });
+
+    test('should deduplicate removed tags', () => {
+      plugin.currentTags = [
+        { name: 'Relev', isAddition: false, condition: '' }
+      ];
+      plugin.suggestedTags = [
+        { name: 'Relev', isAddition: false, condition: '' },
+        { name: 'Relev', isAddition: false, condition: 'file("master.esm")' }
+      ];
+
+      expect(plugin.getCardContent(filters).tags).toEqual({
+        current: 'Relev',
+        add: '',
+        remove: 'Relev'
+      });
+    });
   });
 
   describe('#crc', () => {

@@ -49,14 +49,16 @@ public:
     // Get metadata from masterlist and userlist.
     PluginMetadata metadata(pluginName_);
 
-    auto userMetadata = game_.GetUserMetadata(pluginName_);
-    if (userMetadata.has_value()) {
-      metadata.MergeMetadata(userMetadata.value());
-    }
-
     auto masterlistMetadata = game_.GetMasterlistMetadata(pluginName_);
-    if (masterlistMetadata.has_value()) {
-      metadata.MergeMetadata(masterlistMetadata.value());
+    auto userMetadata = game_.GetUserMetadata(pluginName_);
+
+    if (userMetadata.has_value()) {
+      if (masterlistMetadata.has_value()) {
+        userMetadata.value().MergeMetadata(masterlistMetadata.value());
+      }
+      metadata = userMetadata.value();
+    } else if (masterlistMetadata.has_value()) {
+      metadata = masterlistMetadata.value();
     }
 
     // Generate text representation.
