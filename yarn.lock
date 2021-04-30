@@ -2098,10 +2098,10 @@
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
-"@types/cytoscape@^3.14.7":
-  version "3.14.7"
-  resolved "https://registry.yarnpkg.com/@types/cytoscape/-/cytoscape-3.14.7.tgz#2482ff7bfce0f91039135d5366b9239c22db41f2"
-  integrity sha512-r/3luR7HMfjp9LFrvpHzvQ0fiZp6Ko6ijw0rh4eIKpJRBDHt1406tyR/JjTbhq3WTuqrrYfFNbeYvq+Rv3aTQQ==
+"@types/cytoscape@^3.14.14":
+  version "3.14.14"
+  resolved "https://registry.yarnpkg.com/@types/cytoscape/-/cytoscape-3.14.14.tgz#3380da350873d0bd2ab9a413686324efc89af936"
+  integrity sha512-aW3NzsFfbw1LmPdutaH9tT5ZEuZ9+xqqK4NaH/VyYJZAG5g7SQtRuqNMGwFLUi0uxXDrjn4bJnAsn2Z3RHcI9A==
 
 "@types/eslint-scope@^3.7.0":
   version "3.7.0"
