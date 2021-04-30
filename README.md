@@ -1,7 +1,6 @@
 # LOOT
 
 ![CI](https://github.com/loot/loot/workflows/CI/badge.svg?branch=master&event=push)
-[![Travis Build Status](https://travis-ci.org/loot/loot.svg?branch=master)](https://travis-ci.org/loot/loot)
 [![Documentation Status](https://readthedocs.org/projects/loot/badge/?version=latest)](https://loot.readthedocs.io/en/latest/?badge=latest)
 
 ## Introduction
@@ -16,7 +15,7 @@ LOOT is intended to make using mods easier, and mod users should still possess a
 
 ## Downloads
 
-Releases are hosted on [GitHub](https://github.com/loot/loot/releases), and snapshot builds are available on [Bintray](https://bintray.com/loot/snapshots/loot). The snapshot build archives are named like so:
+Releases are hosted on [GitHub](https://github.com/loot/loot/releases), and snapshot builds are available on [Artifactory](https://loot.jfrog.io/ui/repos/tree/General/loot). The snapshot build archives are named like so:
 
 ```
 loot_<last tag>-<revisions since tag>-g<short revision ID>_<branch>-<platform>.7z
@@ -24,20 +23,22 @@ loot_<last tag>-<revisions since tag>-g<short revision ID>_<branch>-<platform>.7
 
 ## Building LOOT
 
+Refer to `.github/workflows/release.yml` for the build process.
+
 ### Windows
 
-Refer to `.github/workflows/release.yml` for the build process. The GitHub Actions workflow assumes that [CMake](https://cmake.org), curl, gettext, Git, Inno Setup 6, [Node.js](https://nodejs.org/), Python, Visual Studio 2017, Yarn and 7-zip are already installed.
+The GitHub Actions workflow assumes that [CMake](https://cmake.org), curl, gettext, Git, Inno Setup 6, [Node.js](https://nodejs.org/), Python, Visual Studio 2017, Yarn and 7-zip are already installed.
 
 ### Linux
 
-Refer to `.travis.yml` for the build process. It assumes that you have already
-cloned the LOOT repository, that the current working directory is its root, and
-that the following applications are already installed:
+The GitHub Actions workflow assumes that you have already cloned the LOOT
+repository, that the current working directory is its root, and that the
+following applications are already installed:
 
 - `cmake` v3.6+
 - `curl`
 - `git`
-- `nvm`, or just install Node.js 8+ and ignore the `nvm` call in `.travis.yml`.
+- Node.js 8+
 - `python` and `pip` (2.7 or 3, it shouldn't matter)
 - `wget`
 
@@ -71,10 +72,12 @@ pip install -r docs/requirements.txt
 sphinx-build -b html docs build/docs/html
 ```
 
+Alternatively, you can use Docker to avoid changing your development environment, by running `docker run -it --rm -v ${PWD}/docs:/docs/docs -v ${PWD}/build:/docs/build sphinxdoc/sphinx bash` to obtain a shell that you can use to run the two commands above.
+
 ## Packaging Releases
 
 Packaging scripts are provided for creating an installer on Windows and compressed archives on Windows and Linux.
 
-Run the `scripts/installer.iss` [Inno Setup](http://www.jrsoftware.org/isinfo.php) script to build an installer executable in the `build` folder. The script requires the [Inno Download Plugin](https://bitbucket.org/mitrich_k/inno-download-plugin) to be installed. If the unofficial Korean and Simplified Chinese Inno Setup translation files are installed alongside the official translation files, then the installer script will also offer those language options. If they are not found, the installer will be built without them.
+Run the `scripts/installer.iss` [Inno Setup](http://www.jrsoftware.org/isinfo.php) script to build an installer executable in the `build` folder. The script requires the MSVC 2017 Redistributable to be present at `build/vc_redist.x86.exe`. If the unofficial Korean and Simplified Chinese Inno Setup translation files are installed alongside the official translation files, then the installer script will also offer those language options. If they are not found, the installer will be built without them.
 
 The archive packaging script requires [Git](https://git-scm.com/), and on Windows it also requires [7-Zip](https://www.7-zip.org/), while on Linux it requires `tar` and `xz`. It can be run using `node scripts/archive.js`, and creates an archive for LOOT in the `build` folder. The archives are named as described in the Downloads section above.

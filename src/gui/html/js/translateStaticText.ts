@@ -79,15 +79,14 @@ function translatePluginCard(l10n: Translator, element: ShadowRoot): void {
   querySelector(
     element,
     'paper-tooltip[for=isLightMaster]'
-  ).textContent = l10n.translate('Light Master File');
+  ).textContent = l10n.translate('Light Plugin');
   querySelector(
     element,
     'paper-tooltip[for=isEmpty]'
   ).textContent = l10n.translate('Empty Plugin');
-  querySelector(
-    element,
-    'paper-tooltip[for=loadsArchive]'
-  ).textContent = l10n.translate('Loads Archive');
+  querySelector(element, 'paper-tooltip[for=loadsArchive]').textContent =
+    // translators: Tooltip text for an icon that may be displayed on plugin cards. The icon indicates that the plugin in question loads a .bsa or .ba2 (depending on the game) archive.
+    l10n.translate('Loads Archive');
   querySelector(
     element,
     'paper-tooltip[for=hasUserEdits]'
@@ -149,10 +148,9 @@ function translatePluginEditor(l10n: Translator): void {
     pluginEditorShadow,
     '#tableTabs [data-for=msg]'
   ).textContent = l10n.translate('Messages');
-  querySelector(
-    pluginEditorShadow,
-    '#tableTabs [data-for=tag]'
-  ).textContent = l10n.translate('Bash Tags');
+  querySelector(pluginEditorShadow, '#tableTabs [data-for=tag]').textContent =
+    // translators: Title of a tab in the metadata editor.
+    l10n.translate('Bash Tags');
   querySelector(
     pluginEditorShadow,
     '#tableTabs [data-for=dirty]'
@@ -341,6 +339,7 @@ function translateMessageRowTemplate(l10n: Translator): void {
   );
   querySelector(messageRow, '.text').setAttribute(
     'error-message',
+    // translators: The error message displayed if you add a message with no content in the metadata editor.
     l10n.translate('A content string is required.')
   );
   querySelector(messageRow, 'paper-tooltip').textContent = l10n.translate(
@@ -430,23 +429,6 @@ function translateLocationRowTemplate(l10n: Translator): void {
   );
 }
 
-function translateGameRowTemplate(l10n: Translator): void {
-  /* Game row template */
-  const gameRow = getTemplate('gameRow');
-
-  querySelector(gameRow, '.name').setAttribute(
-    'error-message',
-    l10n.translate('A name is required.')
-  );
-  querySelector(gameRow, '.folder').setAttribute(
-    'error-message',
-    l10n.translate('A folder is required.')
-  );
-  querySelector(gameRow, 'paper-tooltip').textContent = l10n.translate(
-    'Delete Row'
-  );
-}
-
 function translateMainToolbar(l10n: Translator): void {
   /* Main toolbar */
   const mainToolbar = getElementById('mainToolbar');
@@ -464,15 +446,14 @@ function translateMainToolbar(l10n: Translator): void {
   ).textContent = l10n.translate('Update Masterlist');
   getElementById('applySortButton').textContent = l10n.translate('Apply');
   getElementById('cancelSortButton').textContent = l10n.translate('Cancel');
-  querySelector(
-    mainToolbar,
-    'paper-tooltip[for=showSearch]'
-  ).textContent = l10n.translate('Search Cards');
+  querySelector(mainToolbar, 'paper-tooltip[for=showSearch]').textContent =
+    // translators: The tooltip for the search icon that reveals the content search input when clicked.
+    l10n.translate('Search Cards');
 
   /* Toolbar menu */
-  getLastChildById('redatePluginsButton').textContent = l10n.translate(
-    'Redate Plugins'
-  );
+  getLastChildById('redatePluginsButton').textContent =
+    // translators: Text of menu option that triggers display of the Redate Plugins dialog.
+    l10n.translate('Redate Plugins');
   getLastChildById('openLogButton').textContent = l10n.translate(
     'Open Debug Log Location'
   );
@@ -504,10 +485,9 @@ function translateMainToolbar(l10n: Translator): void {
     throw new Error('Expected search bar to have a shadow root');
   }
 
-  (getShadowElementById(
-    shadowRoot,
-    'search'
-  ) as PaperInputElement).label = l10n.translate('Search cards');
+  (getShadowElementById(shadowRoot, 'search') as PaperInputElement).label =
+    // translators: The label on the content search text input.
+    l10n.translate('Search cards');
 }
 
 function updateDropdownSelectedItemText(dropdownElement: HTMLElement): void {
@@ -577,11 +557,10 @@ function translateSidebar(l10n: Translator): void {
     'Hide version numbers'
   );
   getElementById('hideCRCs').textContent = l10n.translate('Hide CRCs');
-  getElementById('hideBashTags').textContent = l10n.translate('Hide Bash Tags');
+  getElementById('hideBashTags').textContent =
+    // translators: Text of a filter in the sidebar.
+    l10n.translate('Hide Bash Tags');
   getElementById('hideNotes').textContent = l10n.translate('Hide notes');
-  getElementById('hideDoNotCleanMessages').textContent = l10n.translate(
-    "Hide 'Do not clean' messages"
-  );
   getElementById('hideAllPluginMessages').textContent = l10n.translate(
     'Hide all plugin messages'
   );
@@ -646,6 +625,8 @@ function translateSettingsDialog(l10n: Translator): void {
     'h2'
   ).textContent = l10n.translate('Settings');
 
+  getElementById('settingsGeneralItem').textContent = l10n.translate('General');
+
   const defaultGameSelect = getElementById('defaultGameSelect');
   getPreviousElementSiblingById(
     'defaultGameSelect'
@@ -686,39 +667,63 @@ function translateSettingsDialog(l10n: Translator): void {
     'enableLootUpdateCheck'
   ).textContent = l10n.translate('Check for LOOT updates on startup');
 
-  const gameTable = getElementById('gameTable') as EditableTable;
-  gameTable.localise(l10n);
-  querySelector(gameTable, 'th:first-child').textContent = l10n.translate(
-    'Name'
+  getElementById('settingsGameName').setAttribute(
+    'error-message',
+    l10n.translate('A name is required.')
   );
-  querySelector(gameTable, 'th:nth-child(2)').textContent = l10n.translate(
-    'Base Game'
-  );
-  querySelector(gameTable, 'th:nth-child(3)').textContent = l10n.translate(
-    'LOOT Folder'
-  );
-  querySelector(gameTable, 'th:nth-child(4)').textContent = l10n.translate(
-    'Master File'
-  );
-  querySelector(gameTable, 'th:nth-child(5)').textContent = l10n.translate(
-    'Masterlist Repository URL'
-  );
-  querySelector(gameTable, 'th:nth-child(6)').textContent = l10n.translate(
-    'Masterlist Repository Branch'
-  );
-  querySelector(gameTable, 'th:nth-child(7)').textContent = l10n.translate(
-    'Install Path'
-  );
-  querySelector(gameTable, 'th:nth-child(8)').textContent = l10n.translate(
-    'Install Path Registry Key'
+  getElementById('settingsGameName').setAttribute(
+    'label',
+    l10n.translate('Name')
   );
 
-  /* As the game table is attached on launch, its "Add New Row"
-      tooltip doesn't benefit from the template translation above. */
-  querySelector(
-    gameTable,
-    'tr:last-child paper-tooltip'
-  ).textContent = l10n.translate('Add New Row');
+  getElementById('settingsGameTypeDropdown').setAttribute(
+    'label',
+    l10n.translate('Base Game')
+  );
+
+  getElementById('settingsGameFolder').setAttribute(
+    'error-message',
+    l10n.translate('A folder is required.')
+  );
+  getElementById('settingsGameFolder').setAttribute(
+    'label',
+    l10n.translate('LOOT Folder')
+  );
+
+  getElementById('settingsGameMaster').setAttribute(
+    'label',
+    l10n.translate('Master File')
+  );
+
+  getElementById('settingsGameMasterlistUrl').setAttribute(
+    'label',
+    l10n.translate('Masterlist Repository URL')
+  );
+
+  getElementById('settingsGameMasterlistBranch').setAttribute(
+    'label',
+    l10n.translate('Masterlist Repository Branch')
+  );
+
+  getElementById('settingsGamePath').setAttribute(
+    'label',
+    l10n.translate('Install Path')
+  );
+
+  getElementById('settingsGameRegistry').setAttribute(
+    'label',
+    l10n.translate('Install Path Registry Key')
+  );
+
+  getElementById('settingsGameLocalPath').setAttribute(
+    'label',
+    l10n.translate('Local Data Path')
+  );
+
+  getElementById('addGameButton').textContent = l10n.translate('Add new game');
+  getElementById('deleteGameButton').textContent = l10n.translate(
+    'Delete game'
+  );
 
   getElementById('settingsDialog').getElementsByClassName(
     'accept'
@@ -741,16 +746,12 @@ function translateFirstRunDialog(l10n: Translator, version: LootVersion): void {
     version.release
   );
 
-  querySelector(
-    firstRun,
-    'li:nth-child(1)'
-  ).innerHTML = l10n.translateFormatted(
-    'Click %(menu_icon)s buttons to open menus.',
-    {
+  querySelector(firstRun, 'li:nth-child(1)').innerHTML =
+    // translators: The %(menu_icon)s placeholder is replaced with the menu icon (three vertical dots).
+    l10n.translateFormatted('Click %(menu_icon)s buttons to open menus.', {
       // eslint-disable-next-line @typescript-eslint/camelcase
       menu_icon: '<iron-icon icon="more-vert"></iron-icon>'
-    }
-  );
+    });
   querySelector(firstRun, 'li:nth-child(2)').innerHTML = l10n.translate(
     'As well as messages, LOOT displays plugin <span class="version">version numbers</span>, <span class="crc">CRCs</span> and Bash Tag suggestions for <span class="tag add">addition</span> and <span class="tag remove">removal</span>.'
   );
@@ -790,7 +791,7 @@ function translateAboutDialog(l10n: Translator, version: LootVersion): void {
     version.build
   );
   querySelector(about, 'p:nth-child(2)').textContent = l10n.translate(
-    'Load order optimisation for Oblivion, Skyrim, Skyrim Special Edition, Skyrim VR, Fallout 3, Fallout: New Vegas, Fallout 4 and Fallout 4 VR.'
+    'Load order optimisation for Morrowind, Oblivion, Nehrim, Skyrim, Enderal, Skyrim Special Edition, Enderal Special Edition, Skyrim VR, Fallout 3, Fallout: New Vegas, Fallout 4 and Fallout 4 VR.'
   );
 
   querySelector(about, 'p:nth-child(4)').innerHTML = l10n.translateFormatted(
@@ -814,7 +815,6 @@ export default function translateStaticText(
   translateDirtyInfoRowTemplate(l10n);
   translateCleanInfoRowTemplate(l10n);
   translateLocationRowTemplate(l10n);
-  translateGameRowTemplate(l10n);
 
   translateMainToolbar(l10n);
   translateSidebar(l10n);

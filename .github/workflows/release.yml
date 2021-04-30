@@ -27,6 +27,7 @@ jobs:
         with:
           tag_name: ${{ steps.get-git-tag.outputs.name }}
           release_name: LOOT v${{ steps.get-git-tag.outputs.name }}
+          draft: true
           body: |
             Requires Windows 7 or later and the [MSVC 2017 x86 redistributable](https://download.visualstudio.microsoft.com/download/pr/749aa419-f9e4-4578-a417-a43786af205e/d59197078cc425377be301faba7dd87a/vc_redist.x86.exe), and [7-Zip](https://www.7-zip.org/) to extract the archives. The list of changes can be found [here](https://loot.readthedocs.io/en/latest/app/changelog.html).
 
@@ -37,6 +38,22 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - name: Get Boost metadata
+        id: boost-metadata
+        run: |
+          echo "::set-output name=address-model::32"
+          echo "::set-output name=root::${{ github.workspace }}/boost_1_72_0"
+          echo "::set-output name=librarydir::${{ github.workspace }}/boost_1_72_0/stage/32/lib"
+
+      - name: Boost cache
+        id: boost-cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.boost-metadata.outputs.root }}/boost
+            ${{ steps.boost-metadata.outputs.root }}/stage
+          key: ${{ runner.os }}-Win32-Boost-1.72.0
 
       - name: Install JS dependencies
         run: yarn install
@@ -49,10 +66,16 @@ jobs:
       - name: Generate ICO file
         run: .\svg_to_ico.exe -i resources\icon.svg -o build\icon\icon.ico
 
+      - name: Download & build Boost
+        run: |
+          curl -sSfLO https://raw.githubusercontent.com/Ortham/ci-scripts/2.1.2/install_boost.py
+          python install_boost.py --directory ${{ github.workspace }} --boost-version 1.72.0 -a ${{ steps.boost-metadata.outputs.address-model }} locale system
+        if: steps.boost-cache.outputs.cache-hit != 'true'
+
       - name: Run CMake
         run: |
           cd build
-          cmake .. -G "Visual Studio 15 2017" -DBOOST_ROOT="${env:BOOST_ROOT_1_69_0}" -DBOOST_LIBRARYDIR="${env:BOOST_ROOT_1_69_0}\lib" -DMSVC_STATIC_RUNTIME=ON
+          cmake .. -G "Visual Studio 15 2017" -A Win32 -DBOOST_ROOT="${{ steps.boost-metadata.outputs.root }}" -DBOOST_LIBRARYDIR="${{ steps.boost-metadata.outputs.librarydir }}" -DMSVC_STATIC_RUNTIME=ON
           cmake --build . --config Release
 
       - name: Install packages for building docs
@@ -60,7 +83,7 @@ jobs:
           python -m pip install -r docs/requirements.txt
 
       - name: Build docs
-        run: ${{ runner.tool_cache }}\Python\3.7.8\x64\Scripts\sphinx-build -b html docs build\docs\html
+        run: sphinx-build -b html docs build\docs\html
 
       - name: Build translation message object files
         run: node scripts\potomo.js
