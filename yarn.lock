@@ -2098,10 +2098,12 @@
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
-"@types/cytoscape@^3.14.14":
-  version "3.14.14"
-  resolved "https://registry.yarnpkg.com/@types/cytoscape/-/cytoscape-3.14.14.tgz#3380da350873d0bd2ab9a413686324efc89af936"
-  integrity sha512-aW3NzsFfbw1LmPdutaH9tT5ZEuZ9+xqqK4NaH/VyYJZAG5g7SQtRuqNMGwFLUi0uxXDrjn4bJnAsn2Z3RHcI9A==
+"@types/cytoscape@^3.31.0":
+  version "3.31.0"
+  resolved "https://registry.yarnpkg.com/@types/cytoscape/-/cytoscape-3.31.0.tgz#4cb3ec07c2f331c1ab8aff92a2e52716433dce4e"
+  integrity sha512-EXHOHxqQjGxLDEh5cP4te6J0bi7LbCzmZkzsR6f703igUac8UGMdEohMyU3GHAayCTZrLQOMnaE/lqB2Ekh8Ww==
+  dependencies:
+    cytoscape "*"
 
 "@types/eslint-scope@^3.7.0":
   version "3.7.0"
@@ -3343,6 +3345,11 @@ cytoscape-edgehandles@^3.6.0:
   dependencies:
     lodash.memoize "^4.1.2"
     lodash.throttle "^4.1.1"
+
+cytoscape@*:
+  version "3.33.1"
+  resolved "https://registry.yarnpkg.com/cytoscape/-/cytoscape-3.33.1.tgz#449e05d104b760af2912ab76482d24c01cdd4c97"
+  integrity sha512-iJc4TwyANnOGR1OmWhsS9ayRS3s+XQ185FmuHObThD+5AeJCakAAbWv8KimMTt08xCCLNgneQwFp+JRJOr9qGQ==
 
 cytoscape@^3.18.0:
   version "3.18.0"
